@@ -57,4 +57,5 @@
 - (void)updateCPU;
 - (void)updateGPU;
 - (void)updatePackage;
+- (id)initForFastLoop:(BOOL)a3 noDisplay:(BOOL)a4 powerSaveParams:(id)a5 powerZoneParams:(id)a6;
 @end

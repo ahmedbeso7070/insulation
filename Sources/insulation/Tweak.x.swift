@@ -9,13 +9,13 @@ class CommonProductClassHook: ClassHook<CommonProduct> {
     return res;
   }
 
-  func putDeviceInThermalSimulationMode(_ arg: Any?) {
-    orig.putDeviceInThermalSimulationMode("nominal");
-  }
+  // func putDeviceInThermalSimulationMode(_ arg: Any?) {
+  //   orig.putDeviceInThermalSimulationMode("nominal");
+  // }
 
-  func putDeviceInLowTempSimulationMode(_ arg: Any?) {
-    orig.putDeviceInLowTempSimulationMode("nominal");
-  }
+  // func putDeviceInLowTempSimulationMode(_ arg: Any?) {
+  //   orig.putDeviceInLowTempSimulationMode("nominal");
+  // }
 
   func tryTakeAction() {}
   func simulateLightThermalPressure() {}
@@ -24,4 +24,17 @@ class CommonProductClassHook: ClassHook<CommonProduct> {
 
 class HidSensorsHook: ClassHook<HidSensors> {
   func handleTemperatureEvent(_ arg1: Int, service arg2: Any?) {}
+}
+
+class NSDictionaryHook: ClassHook<NSDictionary> {
+  class func dictionaryWithContentsOfFile(_ path: String) -> Any? {
+    let res = orig.dictionaryWithContentsOfFile(path);
+    if path.contains("/System/Library/ThermalMonitor/") {
+      if let origObj = res as? [String: Any] {
+        let obj = IDictHepler.shared.patchThermalPlist(origObj as CFDictionary);
+        return obj;
+      }
+    }
+    return res;
+  }
 }

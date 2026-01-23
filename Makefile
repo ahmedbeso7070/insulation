@@ -18,13 +18,13 @@ TWEAK_NAME = insulation
 
 $(TWEAK_NAME)_USE_MODULES = 0
 
-MY_INJECT_FILES += $(shell find Sources/$(TWEAK_NAME) -name '*.x')
 $(TWEAK_NAME)_FILES = $(shell find Sources/$(TWEAK_NAME) -name '*.swift') \
-$(shell find Sources/$(TWEAK_NAME)C -name '*.m' -o -name '*.c' -o -name '*.mm' -o -name '*.cpp') \
-$(MY_INJECT_FILES)
+$(shell find Sources/$(TWEAK_NAME)C -name '*.m' -o -name '*.c' -o -name '*.mm' -o -name '*.cpp')
 
 $(TWEAK_NAME)_SWIFTFLAGS = -ISources/$(TWEAK_NAME)C/include
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc -ISources/$(TWEAK_NAME)C/include -fno-objc-msgsend-selector-stubs
 $(TWEAK_NAME)_PRIVATE_FRAMEWORKS = IOKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
+SUBPROJECTS += InsulationPrefs
+include $(THEOS_MAKE_PATH)/aggregate.mk
