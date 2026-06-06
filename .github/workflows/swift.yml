@@ -12,8 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Setup Theos
-      run: make spm
     - name: Build
       run: swift build -v
     - name: Run tests
