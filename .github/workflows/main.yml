@@ -8,7 +8,13 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+  
+    - name: Install Theos
+    run: |
+     git clone --depth=1 https://github.com/theos/theos.git $THEOS
+     bash $THEOS/bin/install-nic.sh
+  env:
+    THEOS: ${{ github.workspace }}/theos
 
     steps:
     - uses: actions/checkout@v4
